@@ -1,0 +1,36 @@
+<h1>Show Opportunity</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.opportunity_show_path(@socket, :show, @opportunity)}>
+    <.live_component
+      module={VolunteerOppDbWeb.OpportunityLive.FormComponent}
+      id={@opportunity.id}
+      title={@page_title}
+      action={@live_action}
+      opportunity={@opportunity}
+      return_to={Routes.opportunity_show_path(@socket, :show, @opportunity)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @opportunity.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @opportunity.description %>
+  </li>
+
+  <li>
+    <strong>Info url:</strong>
+    <%= @opportunity.info_url %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.opportunity_show_path(@socket, :edit, @opportunity), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.opportunity_index_path(@socket, :index) %></span>

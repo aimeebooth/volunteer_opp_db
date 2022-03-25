@@ -1,0 +1,43 @@
+<h1>Listing Opportunities</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.opportunity_index_path(@socket, :index)}>
+    <.live_component
+      module={VolunteerOppDbWeb.OpportunityLive.FormComponent}
+      id={@opportunity.id || :new}
+      title={@page_title}
+      action={@live_action}
+      opportunity={@opportunity}
+      return_to={Routes.opportunity_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Info url</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="opportunities">
+    <%= for opportunity <- @opportunities do %>
+      <tr id={"opportunity-#{opportunity.id}"}>
+        <td><%= opportunity.name %></td>
+        <td><%= opportunity.description %></td>
+        <td><%= opportunity.info_url %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.opportunity_show_path(@socket, :show, opportunity) %></span>
+          <span><%= live_patch "Edit", to: Routes.opportunity_index_path(@socket, :edit, opportunity) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: opportunity.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Opportunity", to: Routes.opportunity_index_path(@socket, :new) %></span>
