@@ -49,9 +49,9 @@ defmodule VolunteerOppDb.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:tesla, "~> 1.4.4"},
       {:hackney, "~> 1.18.1"},
-      {:afterbuy, "~> 1.0"}
+      {:afterbuy, "~> 1.0.10"},
+      {:tesla, "~> 1.4.4", override: true}
     ]
   end
 

@@ -3,8 +3,13 @@ defmodule VolunteerOppDb.ThirdParty.GlobalGiving do
 
   use Tesla
 
-  plug Tesla.Middleware.BaseUrl, "https://www.globalgiving.org/api/"
   plug Afterbuy.Tesla.Middleware.Xml
+  plug Tesla.Middleware.BaseUrl, "https://api.globalgiving.org/api/"
+
+  plug Tesla.Middleware.Headers, [
+    {"Content-Type", "application/xml"},
+    {"Accept", "application/xml"}
+  ]
 
   def list_project_ids do
     {:ok, %Tesla.Env{body: body}} = get("public/projectservice/all/projects/ids?#{auth_params()}")
